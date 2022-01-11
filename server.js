@@ -1,5 +1,6 @@
 const express = require("express");
-const router = require("./ROUTES/routes");
+const res = require("express/lib/response");
+const router = require("./routes/routes");
 const app= express();
 //const routes= require("./ROUTES/routes")
 app.use(express.json());

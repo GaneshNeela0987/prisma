@@ -1,0 +1,234 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+} 
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+}
+
+model Login {
+ Loginid            Int             @id
+ projectmodel       Project         @relation(fields: [projectid_1], references: [projectid])
+ projectid_1        Int             @id
+ surveymodel        Survey          @relation(fields: [surveyid], references: [surveyid])
+ surveyid           Int             @id
+ sourceModel        Sources         @relation(fields: [sourceid], references: [sourceid])
+ sourceid           Int             @id
+ reportModel        Reports         @relation(fields: [reportid], references: [reportid])
+ reportid           Int             @id
+ downloadmodel      Downloads       @relation(fields: [downloadid], references: [downloadid])
+ downloadid         Int               @id
+ layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+ polygonlayermodel  Polygon         @relation(fields:[pointlayerid],references:[pointlayerid])
+ polygonlayerid     Int              @id
+ username          String            @db.VarChar(20)
+ password          String            @db.VarChar(20)
+ logintype          Int
+ clientid           Int
+ categoryid         Int
+ projectid          Int
+ logo              String            @db.VarChar(100)
+}
+
+
+model Project {
+ projectid       Int                @id
+ surveymodel        Survey          @relation(fields: [surveyid], references: [surveyid])
+ surveyid           Int              @id
+ sourceModel        Sources         @relation(fields: [sourceid], references: [sourceid])
+ sourceid           Int              @id
+ reportModel        Reports         @relation(fields: [reportid], references: [reportid])
+ reportid           Int              @id
+ downloadmodel      Downloads       @relation(fields: [downloadid], references: [downloadid])
+ downloadid         Int              @id
+ layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+ polygonlayermodel  Polygon         @relation(fields:[pointlayerid],references:[pointlayerid])
+ polygonlayerid     Int              @id
+
+ categoryid         Int
+ mapid              Int
+ projectname        String      @db.VarChar(30)
+ areas_acres        Int
+ location           String      @db.VarChar(25)
+ state              String      @db.VarChar(25)
+}
+
+model Basemap {
+ mapid              Int         @id
+ projectmodel       Project         @relation(fields: [projectid], references: [projectid])
+ projectid           Int             @id
+ surveymodel        Survey          @relation(fields: [surveyid], references: [surveyid])
+ surveyid           Int              @id
+ sourceModel        Sources         @relation(fields: [sourceid], references: [sourceid])
+ sourceid           Int              @id
+ reportModel        Reports         @relation(fields: [reportid], references: [reportid])
+ reportid           Int              @id
+ downloadmodel      Downloads       @relation(fields: [downloadid], references: [downloadid])
+ downloadid         Int               @id
+ layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+ polygonlayermodel  Polygon         @relation(fields:[polygonlayerid],references:[polygonlayerid])
+ polygonlayerid     Int             @id
+ mapname            String         @db.VarChar(30)
+ maplink            String         @db.VarChar(50)
+}
+
+model Survey {
+ surveyid           Int              @id
+ sourceModel        Sources         @relation(fields: [sourceid], references: [sourceid])
+ sourceid           Int              @id
+ reportModel        Reports         @relation(fields: [reportid], references: [reportid])
+ reportid           Int              @id
+ downloadmodel      Downloads       @relation(fields: [downloadid], references: [downloadid])
+ downloadid         Int               @id
+ layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ 
+ projectid          Int
+ lat                Float
+ long               Float
+ surveyname         String            @db.VarChar(20)
+ date_of_survey     DateTime           
+ zoom               Float
+ zoom_min           Float
+ zoom_max           Float
+}
+
+model ProjectCategory {
+ categoryid         Int     @id
+ projectmodel       Project         @relation(fields: [projectid], references: [projectid])
+ projectid         Int             @id
+ surveymodel        Survey          @relation(fields: [surveyid], references: [surveyid])
+ surveyid           Int              @id
+ sourceModel        Sources         @relation(fields: [sourceid], references: [sourceid])
+ sourceid           Int              @id
+ reportModel        Reports         @relation(fields: [reportid], references: [reportid])
+ reportid           Int              @id
+ downloadmodel      Downloads       @relation(fields: [downloadid], references: [downloadid])
+ downloadid         Int               @id
+ layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+polygonlayermodel  Polygon         @relation(fields:[polygonlayerid],references:[polygonlayerid])
+ polygonlayerid     Int             @id
+ categoryname       String    @db.VarChar(30)
+ domain             String    @db.VarChar(50)
+}
+
+model Sources {
+ sourceid          Int            @id
+layermodel         Vectorlayer     @relation(fields: [layerid], references: [layerid])
+ layerid            Int              @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+ polygonlayermodel  Polygon         @relation(fields:[polygonlayerid],references:[polygonlayerid])
+ polygonlayerid     Int             @id
+ surveyid           Int
+ datatype          String     @db.VarChar(10)
+ source_name       String     @db.VarChar(30)
+ source_link       String     @db.VarChar(50)
+ 3d_source         String     @db.VarChar(50)
+}
+
+model Reports {
+  reportid          Int       @id
+  surveyid          Int 
+  projectid         Int
+  report_type       String    @db.VarChar(15) 
+}
+
+model Vectorlayer {
+  layerid            Int      @id
+ pointlayermodel    Point           @relation(fields:[pointlayerid], references:[pointlayerid])
+ pointlayerid       Int              @id
+ linestringmodel    Linestring      @relation(fields: [linestringlayerid], references: [linestringlayerid])
+ linestringlayerid  Int              @id
+ polygonlayermodel  Polygon         @relation(fields:[polygonlayerid],references:[polygonlayerid])
+ polygonlayerid     Int             @id
+  sourceid           Int
+  vectortype         String  @db.VarChar(10)
+  layername          String  @db.VarChar(20)
+  displayname        String  @db.VarChar(30)
+  visibility         Int
+}
+
+model Downloads {
+  downloadid      Int       @id
+  surveyid        Int
+  filetype        String    @db.VarChar(10)
+}
+
+model Point {
+  pointlayerid    Int       @id
+  layerid         Int
+  color           String    @db.VarChar(10)
+  radius          Int
+  textfield       String
+}
+
+model Linestring {
+  linestringlayerid   Int   @id
+  linewidth           Int
+  color           String    @db.VarChar(10)
+  attribute       String
+}
+
+model Polygon {
+ polygonlayerid         Int       @id
+ layerid                Int 
+ linewidth              Int
+ linecolor              String    @db.VarChar(10)
+ fillcolor              String    @db.VarChar(10)
+ fillopacity            Int
+ areaattribute          String   @db.VarChar(10)
+ hover                  Int
+ textfield              String
+}
+
+
+model myProfile {
+  firstName   String
+  lastName    String 
+  middleName  String
+  roles       roles[]
+  userId      Int @id
+  phoneno     Int
+}

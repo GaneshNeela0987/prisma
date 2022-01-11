@@ -11,7 +11,6 @@ const getPost=()=>
         })
    }
 
-
    //adding new user
 const addPost=(data)=>
     {
