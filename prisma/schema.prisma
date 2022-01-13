@@ -14,24 +14,6 @@ role String?
 }
 model Login {
   Loginid           Int         @id
-  projectmodel      Project     @relation(fields: [projectid_1], references: [projectid])
-  projectid_1       Int
-  surveymodel       Survey      @relation(fields: [surveyid], references: [surveyid])
-  surveyid          Int
-  sourceModel       Sources     @relation(fields: [sourceid], references: [sourceid])
-  sourceid          Int
-  reportModel       Reports     @relation(fields: [reportid], references: [reportid])
-  reportid          Int
-  downloadmodel     Downloads   @relation(fields: [downloadid], references: [downloadid])
-  downloadid        Int
-  layermodel        Vectorlayer @relation(fields: [layerid], references: [layerid])
-  layerid           Int
-  pointlayermodel   Point       @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring  @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon     @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
   username          String      @db.VarChar(20)
   password          String      @db.VarChar(20)
   logintype         Int
@@ -43,129 +25,46 @@ model Login {
 
 model Project {
   projectid         Int         @id
-  surveymodel       Survey      @relation(fields: [surveyid], references: [surveyid])
-  surveyid          Int
-  sourceModel       Sources     @relation(fields: [sourceid], references: [sourceid])
-  sourceid          Int
-  reportModel       Reports     @relation(fields: [reportid], references: [reportid])
-  reportid          Int
-  downloadmodel     Downloads   @relation(fields: [downloadid], references: [downloadid])
-  downloadid        Int
-  layermodel        Vectorlayer @relation(fields: [layerid], references: [layerid])
-  layerid           Int
-  pointlayermodel   Point       @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring  @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon     @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
-
   categoryid      Int
   mapid           Int
   projectname     String            @db.VarChar(30)
   areas_acres     Int
   location        String            @db.VarChar(25)
   state           String            @db.VarChar(25)
-  Login           Login[]
-  Basemap         Basemap[]
-  ProjectCategory ProjectCategory[]
 }
 
 model Basemap {
   mapid             Int         @id
-  projectmodel      Project     @relation(fields: [projectid], references: [projectid])
-  projectid         Int
-  surveymodel       Survey      @relation(fields: [surveyid], references: [surveyid])
-  surveyid          Int
-  sourceModel       Sources     @relation(fields: [sourceid], references: [sourceid])
-  sourceid          Int
-  reportModel       Reports     @relation(fields: [reportid], references: [reportid])
-  reportid          Int
-  downloadmodel     Downloads   @relation(fields: [downloadid], references: [downloadid])
-  downloadid        Int
-  layermodel        Vectorlayer @relation(fields: [layerid], references: [layerid])
-  layerid           Int
-  pointlayermodel   Point       @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring  @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon     @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
   mapname           String      @db.VarChar(30)
   maplink           String      @db.VarChar(50)
 }
 
 model Survey {
   surveyid        Int         @id
-  sourceModel     Sources     @relation(fields: [sourceid], references: [sourceid])
-  sourceid        Int
-  reportModel     Reports     @relation(fields: [reportid], references: [reportid])
-  reportid        Int
-  downloadmodel   Downloads   @relation(fields: [downloadid], references: [downloadid])
-  downloadid      Int
-  layermodel      Vectorlayer @relation(fields: [layerid], references: [layerid])
-  layerid         Int
-  pointlayermodel Point       @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid    Int
-
   projectid       Int
   lat             Float
   long            Float
   surveyname      String            @db.VarChar(20)
-  date_of_survey  DateTime
+  date_of_survey  String
   zoom            Float
   zoom_min        Float
   zoom_max        Float
-  Login           Login[]
-  Project         Project[]
-  Basemap         Basemap[]
-  ProjectCategory ProjectCategory[]
+ 
 }
 
 model ProjectCategory {
   categoryid        Int         @id
-  projectmodel      Project     @relation(fields: [projectid], references: [projectid])
-  projectid         Int
-  surveymodel       Survey      @relation(fields: [surveyid], references: [surveyid])
-  surveyid          Int
-  sourceModel       Sources     @relation(fields: [sourceid], references: [sourceid])
-  sourceid          Int
-  reportModel       Reports     @relation(fields: [reportid], references: [reportid])
-  reportid          Int
-  downloadmodel     Downloads   @relation(fields: [downloadid], references: [downloadid])
-  downloadid        Int
-  layermodel        Vectorlayer @relation(fields: [layerid], references: [layerid])
-  layerid           Int
-  pointlayermodel   Point       @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring  @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon     @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
   categoryname      String      @db.VarChar(30)
   domain            String      @db.VarChar(50)
 }
 
 model Sources {
   sourceid          Int               @id
-  layermodel        Vectorlayer       @relation(fields: [layerid], references: [layerid])
-  layerid           Int
-  pointlayermodel   Point             @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring        @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon           @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
   surveyid          Int
   datatype          String            @db.VarChar(10)
   source_name       String            @db.VarChar(30)
   source_link       String            @db.VarChar(50)
   d_source          String            @db.VarChar(50)
-  Login             Login[]
-  Project           Project[]
-  Basemap           Basemap[]
-  Survey            Survey[]
-  ProjectCategory   ProjectCategory[]
 }
 
 model Reports {
@@ -173,43 +72,24 @@ model Reports {
   surveyid        Int
   projectid       Int
   report_type     String            @db.VarChar(15)
-  Login           Login[]
-  Project         Project[]
-  Basemap         Basemap[]
-  Survey          Survey[]
-  ProjectCategory ProjectCategory[]
+  
 }
 
 model Vectorlayer {
   layerid           Int               @id
-  pointlayermodel   Point             @relation(fields: [pointlayerid], references: [pointlayerid])
-  pointlayerid      Int
-  linestringmodel   Linestring        @relation(fields: [linestringlayerid], references: [linestringlayerid])
-  linestringlayerid Int
-  polygonlayermodel Polygon           @relation(fields: [polygonlayerid], references: [polygonlayerid])
-  polygonlayerid    Int
   sourceid          Int
   vectortype        String            @db.VarChar(10)
   layername         String            @db.VarChar(20)
   displayname       String            @db.VarChar(30)
   visibility        Int
-  Login             Login[]
-  Project           Project[]
-  Basemap           Basemap[]
-  Survey            Survey[]
-  ProjectCategory   ProjectCategory[]
-  Sources           Sources[]
+  
 }
 
 model Downloads {
   downloadid      Int               @id
   surveyid        Int
   filetype        String            @db.VarChar(10)
-  Login           Login[]
-  Project         Project[]
-  Basemap         Basemap[]
-  Survey          Survey[]
-  ProjectCategory ProjectCategory[]
+ 
 }
 
 model Point {
@@ -218,13 +98,6 @@ model Point {
   color           String            @db.VarChar(10)
   radius          Int
   textfield       String
-  Login           Login[]
-  Project         Project[]
-  Basemap         Basemap[]
-  Survey          Survey[]
-  ProjectCategory ProjectCategory[]
-  Sources         Sources[]
-  Vectorlayer     Vectorlayer[]
 }
 
 model Linestring {
@@ -232,12 +105,7 @@ model Linestring {
   linewidth         Int
   color             String            @db.VarChar(10)
   attribute         String
-  Login             Login[]
-  Project           Project[]
-  Basemap           Basemap[]
-  ProjectCategory   ProjectCategory[]
-  Sources           Sources[]
-  Vectorlayer       Vectorlayer[]
+  
 }
 
 model Polygon {
@@ -250,12 +118,5 @@ model Polygon {
   areaattribute   String            @db.VarChar(10)
   hover           Int
   textfield       String
-  Login           Login[]
-  Project         Project[]
-  Basemap         Basemap[]
-  ProjectCategory ProjectCategory[]
-  Sources         Sources[]
-  Vectorlayer     Vectorlayer[]
 }
-
-
+  
