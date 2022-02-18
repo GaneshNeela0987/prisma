@@ -23,23 +23,37 @@ const findDownload=async(req,res)=>
 const addDownload= async(req,res)=>
         {
        const { surveyid,downloadid,filetype}=req.body;
-      try{ const Created= await prisma.downloads.create({data: { filetype:filetype,surveyid:surveyid,downloadid:downloadid }})
+      try{ const Created= await prisma.downloads.createMany({data: req.body})
        res.json(Created);}
        catch(error){
+         console.log(error)
         res.send(error)
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
-//deleteproject
+       
+        
+            
+
+
+//update
+
+const updateDownload= async(req,res)=>{
+
+    try{
+    const updated = await prisma.downloads.update({
+        where: {
+          downloadid: req.body.downloadid,
+        },
+        data: req.body.data,
+      })
+      res.json(updated) }
+      catch(error){
+          res.send(error)
+      }
+
+    }
+//delete
 const deleteDownload=async(req,res)=> 
        {
         const {downloadid}=req.body;
@@ -54,4 +68,4 @@ const deleteDownload=async(req,res)=>
    
 
         
-    module.exports.downloads={getDownload,deleteDownload,addDownload,findDownload}
+    module.exports.downloads={getDownload,deleteDownload,addDownload,findDownload,updateDownload}

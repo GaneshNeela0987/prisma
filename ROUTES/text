@@ -224,6 +224,7 @@ model Polygon {
 }
 
 
+
 model myProfile {
   firstName   String
   lastName    String 
@@ -231,4 +232,6 @@ model myProfile {
   roles       roles[]
   userId      Int @id
   phoneno     Int
+  token       Int
 }
+

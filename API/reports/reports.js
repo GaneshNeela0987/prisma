@@ -30,15 +30,21 @@ const addreports= async(req,res)=>
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
+const updatereports= async(req,res)=>{
+
+            try{
+            const updated = await prisma.reports.update({
+                where: {
+                    reportid: req.body.reportid,
+                },
+                data: req.body.data,
+              })
+              res.json(updated) }
+              catch(error){
+                  res.send(error)
+              }
+        
+        }
 //deleteproject
 const deletereports=async(req,res)=> 
        {
@@ -54,4 +60,4 @@ const deletereports=async(req,res)=>
    
 
         
-    module.exports.reports={getreports,deletereports,addreports,findreports}
+    module.exports.reports={getreports,deletereports,addreports,findreports,updatereports}

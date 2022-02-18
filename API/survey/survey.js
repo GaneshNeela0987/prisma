@@ -32,16 +32,22 @@ const addsurvey= async(req,res)=>
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
-//deleteproject
+const updatesurvey= async(req,res)=>{
+
+            try{
+            const updated = await prisma.survey.update({
+                where: {
+                    surveyid: req.body.surveyid,
+                },
+                data: req.body.data,
+              })
+              res.json(updated) }
+              catch(error){
+                  res.send(error)
+              }
+        
+        }
+//delete
 const deletesurvey=async(req,res)=> 
        {
         const {surveyid }=req.body;
@@ -55,5 +61,5 @@ const deletesurvey=async(req,res)=>
       }
    
 
-        
-    module.exports.survey={getsurvey,deletesurvey,addsurvey,findsurvey}
+        // 400 //502 
+    module.exports.survey={getsurvey,deletesurvey,addsurvey,findsurvey,updatesurvey}

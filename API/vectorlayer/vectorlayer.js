@@ -23,22 +23,28 @@ const findVector=async(req,res)=>
 const addVector= async(req,res)=>
         {
        const { sourceid, layerid,vectortype,layername,visibility,displayname}=req.body;
-      try{ const Created= await prisma.vectorlayer.create({data:  { sourceid:sourceid, layerid:layerid,vectortype:vectortype,layername:layername,visibility:visibility,displayname:displayname} })
+      try{ const Created= await prisma.vectorlayer.create({data: req.body})
        res.json(Created);}
        catch(error){
         res.send(error)
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
+const updateVector= async(req,res)=>{
+
+          try{
+          const updated = await prisma.vectorlayer.update({
+              where: {
+                layerid: req.body.layerid,
+              },
+              data: req.body.data,
+            })
+            res.json(updated) }
+            catch(error){
+                res.send(error)
+            }
+      
+      }
 //deleteproject
 const deleteVector=async(req,res)=> 
        {
@@ -54,4 +60,4 @@ const deleteVector=async(req,res)=>
    
 
         
-    module.exports.vectorlayer={getVector,deleteVector,addVector,findVector}
+    module.exports.vectorlayer={getVector,deleteVector,addVector,findVector,updateVector}

@@ -30,15 +30,21 @@ const addsource= async(req,res)=>
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
+const updatesource= async(req,res)=>{
+
+            try{
+            const updated = await prisma.sources.update({
+                where: {
+                    sourceid: req.body.sourceid,
+                },
+                data: req.body.data,
+              })
+              res.json(updated) }
+              catch(error){
+                  res.send(error)
+              }
+        
+        }
 //deleteproject
 const deletesource=async(req,res)=> 
        {
@@ -54,4 +60,4 @@ const deletesource=async(req,res)=>
    
 
         
-    module.exports.source={getsource,deletesource,addsource,findsource}
+    module.exports.source={getsource,deletesource,addsource,findsource,updatesource}

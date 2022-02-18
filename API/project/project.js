@@ -23,22 +23,28 @@ const findProject=async(req,res)=>
 const addProject= async(req,res)=>
         {
        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-      try{ const Created= await prisma.project.create({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
+      try{ const Created= await prisma.project.create({data: req.body })
        res.json(Created);}
        catch(error){
         res.send(error)
     }
         }
 
-//  const updateProject= async(req,res)=>
-//         {
-//        const { projectid,categoryid,mapid,projectname,areas_acres,location,state}=req.body;
-//       try{ const Created= await prisma.project.update({data: { projectid:projectid,categoryid:categoryid,mapid:mapid,projectname:projectname,areas_acres:areas_acres,location:location,state:state} })
-//        res.json(Created);}
-//        catch(error){
-//         res.send(error)
-//     }
-//         }
+const updateProject= async(req,res)=>{
+
+            try{
+            const updated = await prisma.project.update({
+                where: {
+                    projectid: req.body.projectid,
+                },
+                data: req.body.data,
+              })
+              res.json(updated) }
+              catch(error){
+                  res.send(error)
+              }
+        
+        }
 //deleteproject
 const deleteProject=async(req,res)=> 
        {
@@ -54,4 +60,4 @@ const deleteProject=async(req,res)=>
    
 
         
-    module.exports.projects={getProjects,deleteProject,addProject,findProject}
+    module.exports.projects={getProjects,deleteProject,addProject,findProject,updateProject}

@@ -15,13 +15,13 @@ role String?
 model Login {
   Loginid           Int         @id
   username          String      @db.VarChar(20)
-  password          String      @db.VarChar(20)
+  password          String     
   logintype         Int
   clientid          Int
   categoryid        Int
   projectid         Int
   logo              String      @db.VarChar(100)
-}
+} //demoid status name categoryid 
 
 model Project {
   projectid         Int         @id
@@ -37,7 +37,7 @@ model Basemap {
   mapid             Int         @id
   mapname           String      @db.VarChar(30)
   maplink           String      @db.VarChar(50)
-}
+} //style lat long zoomlevel status
 
 model Survey {
   surveyid        Int         @id
@@ -56,7 +56,7 @@ model ProjectCategory {
   categoryid        Int         @id
   categoryname      String      @db.VarChar(30)
   domain            String      @db.VarChar(50)
-}
+} //dashboard_link
 
 model Sources {
   sourceid          Int               @id
@@ -65,7 +65,7 @@ model Sources {
   source_name       String            @db.VarChar(30)
   source_link       String            @db.VarChar(50)
   d_source          String            @db.VarChar(50)
-}
+} //report
 
 model Reports {
   reportid        Int               @id
@@ -73,7 +73,7 @@ model Reports {
   projectid       Int
   report_type     String            @db.VarChar(15)
   
-}
+} //no data
 
 model Vectorlayer {
   layerid           Int               @id
@@ -90,7 +90,7 @@ model Downloads {
   surveyid        Int
   filetype        String            @db.VarChar(10)
  
-}
+} //project id displayname
 
 model Point {
   pointlayerid    Int               @id
@@ -106,7 +106,7 @@ model Linestring {
   color             String            @db.VarChar(10)
   attribute         String
   
-}
+} //layerid 
 
 model Polygon {
   polygonlayerid  Int               @id

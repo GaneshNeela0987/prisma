@@ -23,7 +23,6 @@ const addUser=(data)=>
     }
 
 
-
 const  userlogin=(data)=>
         { 
           return new Promise( async(resolve)=>{

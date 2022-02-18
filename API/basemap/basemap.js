@@ -1,6 +1,4 @@
 const { PrismaClient } =require('@prisma/client');
-const res = require('express/lib/response');
-
 const prisma = new PrismaClient()
 //fetching all projects
 const getBasemap= async(req,res)=>
@@ -22,13 +20,34 @@ const findBasemap=async(req,res)=>
    //adding new project
 const addBasemap= async(req,res)=>
         {
-       const { maplink,mapname,mapid}=req.body;
-      try{ const Created= await prisma.basemap.create({data: { mapid:mapid,maplink:maplink,mapname:mapname} })
+       const {maplink,mapname,mapid}=req.body;
+       console.log(req.body)
+      try{ const Created= await prisma.basemap.create({data: req.body })
        res.json(Created);}
        catch(error){
         res.send(error)
     }
         }
+
+//update
+const updateBasemap= async(req,res)=>{
+
+    try{
+    const updated = await prisma.basemap.update({
+        where: {
+          mapid: req.body.mapid,
+        },
+        data: req.body.data,
+      })
+      res.json(updated) }
+      catch(error){
+          res.send(error)
+      }
+
+}
+
+
+
 
 //  const updateProject= async(req,res)=>
 //         {
@@ -54,4 +73,4 @@ const deleteBasemap=async(req,res)=>
    
 
         
-    module.exports.basemap={getBasemap,deleteBasemap,addBasemap,findBasemap}
+    module.exports.basemap={getBasemap,deleteBasemap,addBasemap,findBasemap,updateBasemap}
