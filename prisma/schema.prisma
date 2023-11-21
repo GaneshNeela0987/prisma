@@ -120,3 +120,20 @@ model Polygon {
   textfield       String
 }
   
+
+  model user {
+
+  id            Int   @id 
+  name          String  
+  password      String 
+   role         roleModel[]
+  }
+
+  model roleModel {
+
+ id        Int    @id @default(autoincrement())
+ roleName  String 
+ userName  user  @relation (fields: [userId], references: [id])
+ userId    Int 
+
+  }
